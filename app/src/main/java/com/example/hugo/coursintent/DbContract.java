@@ -11,9 +11,9 @@ public class DbContract {
 
     }
 
-    public static final class StudentEntries implements BaseColumns {
-        public static final String TABLE_NAME = "student";
-        public static final String FIRST_NAME = "firstname";
-        public static final String LAST_NAME = "lastname";
+    public static final class MessageEntries implements BaseColumns {
+        public static final String TABLE_NAME = "messages";
+        public static final String USERNAME = "username";
+        public static final String MESSAGE = "texte";
     }
 }

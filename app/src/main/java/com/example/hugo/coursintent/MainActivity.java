@@ -1,5 +1,6 @@
 package com.example.hugo.coursintent;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.example.hugo.coursintent.DbContract.*;
 
 import org.w3c.dom.Text;
 
@@ -52,6 +54,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 champTexte.getText().clear();
                 break;
+            sendMessage(spinnerUser.getSelectedItem());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
+
+    private void sendMessage(Object user){
+        ContentValues cv = new ContentValues();
+
+        cv.put(MessageEntries.USERNAME, user);
+
+        db.insert(MessageEntries.TABLE_NAME,null,cv);
     }
 }

@@ -12,7 +12,7 @@ import com.example.hugo.coursintent.DbContract.*;
  */
 
 public class DbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "ludus.db";
+    private static final String DATABASE_NAME = "messagerie.db";
     private static final Integer DATABASE_VERSION = 1;
 
     //Constructor
@@ -25,11 +25,13 @@ public class DbHelper extends SQLiteOpenHelper {
         StringBuilder sb = new StringBuilder();
 
         sb.append("CREATE TABLE ");
-        sb.append(StudentEntries.TABLE_NAME);   //voir imports
+        sb.append(MessageEntries.TABLE_NAME);   //voir imports
         sb.append(" (");
-        sb.append(StudentEntries._ID);
+        sb.append(MessageEntries._ID);
         sb.append(" INTEGER PRIMARY KEY AUTOINCREMENT,");
-        sb.append(StudentEntries.FIRST_NAME);
+        sb.append(MessageEntries.USERNAME);
+        sb.append(" TEXT NOT NULL,");
+        sb.append(MessageEntries.MESSAGE);
         sb.append(" TEXT NOT NULL);");
 
         /*final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " + WaitlistEntry.TABLE_NAME + " (" +
@@ -44,10 +46,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ StudentEntries.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ MessageEntries.TABLE_NAME);
         onCreate(db);
     }
 
+    /*  //Vieille fonction, laissée comme exemple
     public ArrayList<String> getAllStudents(SQLiteDatabase db){
         Cursor cursor;
         String[] args = {"Albert"};
@@ -61,7 +64,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 null,
                 StudentEntries.FIRST_NAME+" ASC "
         );*/
-
+        /*
         //Deuxième possibilité :
         String query = "SELECT * FROM "+StudentEntries.TABLE_NAME+" ORDER BY "+StudentEntries.FIRST_NAME+" ASC";
         cursor = db.rawQuery(query,null);
@@ -73,4 +76,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return result;
     }
+    */
+
 }
