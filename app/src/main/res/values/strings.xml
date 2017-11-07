@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CoursIntent</string>
+
+    <string-array name="users">
+        <item>User1</item>
+        <item>User2</item>
+    </string-array>
+
+</resources>
