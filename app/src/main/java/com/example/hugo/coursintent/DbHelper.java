@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
+import com.example.hugo.coursintent.DbContract.*;
 
 /**
  * Created by Hugo on 07/11/2017.
@@ -16,7 +16,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final Integer DATABASE_VERSION = 1;
 
     //Constructor
-    public DBHelper(Context context){
+    public DbHelper(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
