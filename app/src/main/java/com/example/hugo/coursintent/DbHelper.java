@@ -34,13 +34,6 @@ public class DbHelper extends SQLiteOpenHelper {
         sb.append(MessageEntries.MESSAGE);
         sb.append(" TEXT NOT NULL);");
 
-        /*final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " + WaitlistEntry.TABLE_NAME + " (" +
-                WaitlistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                WaitlistEntry.COLUMN_GUEST_NAME + " TEXT NOT NULL, " +
-                WaitlistEntry.COLUMN_PARTY_SIZE + " INTEGER NOT NULL, " +
-                WaitlistEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
-                "); ";*/
-
         db.execSQL(sb.toString());
     }
 
@@ -50,32 +43,23 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /*  //Vieille fonction, laissée comme exemple
-    public ArrayList<String> getAllStudents(SQLiteDatabase db){
+    public ArrayList<String> getAllMessages(SQLiteDatabase db){
         Cursor cursor;
-        String[] args = {"Albert"};
-        String[] columns = {StudentEntries.FIRST_NAME};
-        /*cursor = db.query(
-                StudentEntries.TABLE_NAME,
-                columns,
-                StudentEntries.FIRST_NAME + " = ?",
-                args,
-                null,
-                null,
-                StudentEntries.FIRST_NAME+" ASC "
-        );*/
-        /*
-        //Deuxième possibilité :
-        String query = "SELECT * FROM "+StudentEntries.TABLE_NAME+" ORDER BY "+StudentEntries.FIRST_NAME+" ASC";
+
+        String query = "SELECT * FROM "+MessageEntries.TABLE_NAME;
         cursor = db.rawQuery(query,null);
 
         ArrayList<String> result = new ArrayList<String>();
         while(cursor.moveToNext()){
-            result.add(cursor.getString(cursor.getColumnIndex(StudentEntries.FIRST_NAME)));
+            result.add(
+                    cursor.getString(cursor.getColumnIndex(MessageEntries.USERNAME))
+                    + " a dit : "
+                    + cursor.getString(cursor.getColumnIndex(MessageEntries.MESSAGE))
+                    + "\n");    //Le add revient déjà à la ligne à chaque fois, mais je voulais qu'il passe une ligne de plus
         }
 
         return result;
     }
-    */
+
 
 }

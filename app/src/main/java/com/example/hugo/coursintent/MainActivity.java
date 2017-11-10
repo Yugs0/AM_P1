@@ -14,6 +14,8 @@ import com.example.hugo.coursintent.DbContract.*;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     EditText champTexte;
     Button btnEnvoi;
@@ -41,20 +43,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUser.setAdapter(adapter);
 
+        ArrayList<String> listMessages = dbHelper.getAllMessages(db);
+
+        for(int i=0;i<listMessages.size();i++){
+            historique.append(listMessages.get(i)+"\n");
+        }
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnEnvoi:
-                if (spinnerUser.getSelectedItemId() == 0){
-                    historique.append("USER 1 a dit : "+ champTexte.getText()+"\n\n");
-                }
-                if (spinnerUser.getSelectedItemId() == 1){
-                    historique.append("USER 2 a dit : "+ champTexte.getText()+"\n\n");
-                }
+
+                historique.append(
+                        spinnerUser.getSelectedItem().toString()
+                        + " a dit : "
+                        + champTexte.getText()
+                        + "\n\n");
+
+                sendMessage();
                 champTexte.getText().clear();
-                sendMessage(spinnerUser);
+
                 break;
         }
     }
@@ -65,10 +75,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
     }
 
-    private void sendMessage(Spinner spinnerUser){
+    private void sendMessage(){
         ContentValues cv = new ContentValues();
 
         cv.put(MessageEntries.USERNAME, spinnerUser.getSelectedItem().toString());
+        cv.put(MessageEntries.MESSAGE, champTexte.getText().toString());
         db.insert(MessageEntries.TABLE_NAME,null,cv);
     }
 }
