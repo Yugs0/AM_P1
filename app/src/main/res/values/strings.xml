@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">CoursIntent</string>
+    <string name="app_name">Exercice chat (Bryan et Hugo)</string>
 
     <string-array name="users">
-        <item>User1</item>
-        <item>User2</item>
+        <item>Judas</item>
+        <item>Adolf</item>
+        <item>Oussama</item>
+        <item>Augusto</item>
+        <item>Saddam</item>
+        <item>Marc-Eugène</item>
     </string-array>
+
+    <string name="defaultText">Votre message...</string>
 
 </resources>

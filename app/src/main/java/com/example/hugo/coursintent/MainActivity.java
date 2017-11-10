@@ -1,24 +1,27 @@
 package com.example.hugo.coursintent;
 
+/**********************************************
+ *************** Bryan et Hugo ****************
+ **********************************************/
+
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+//import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.hugo.coursintent.DbContract.*;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     EditText champTexte;
-    Button btnEnvoi;
+    ImageButton btnEnvoi;
     Spinner spinnerUser;
     TextView historique;
     SQLiteDatabase db;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         db = dbHelper.getWritableDatabase();
 
         champTexte = (EditText) findViewById(R.id.champTexte);
-        btnEnvoi = (Button) findViewById(R.id.btnEnvoi);
+        btnEnvoi = (ImageButton) findViewById(R.id.btnEnvoi);
         spinnerUser = (Spinner) findViewById(R.id.spinnerUser);
         historique = (TextView) findViewById(R.id.historique);
 
@@ -55,16 +58,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnEnvoi:
+                if (!champTexte.getText().toString().matches("")){  //Si le champTexte n'est pas vide
+                    historique.append(
+                            spinnerUser.getSelectedItem().toString()
+                                    + " a dit : "
+                                    + champTexte.getText()
+                                    + "\n\n");
 
-                historique.append(
-                        spinnerUser.getSelectedItem().toString()
-                        + " a dit : "
-                        + champTexte.getText()
-                        + "\n\n");
-
-                sendMessage();
-                champTexte.getText().clear();
-
+                    sendMessage();
+                    champTexte.getText().clear();
+                }
                 break;
         }
     }
