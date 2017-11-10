@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DbHelper dbHelper = new DbHelper(this);
+        db = dbHelper.getWritableDatabase();
+
         champTexte = (EditText) findViewById(R.id.champTexte);
         btnEnvoi = (Button) findViewById(R.id.btnEnvoi);
         spinnerUser = (Spinner) findViewById(R.id.spinnerUser);
@@ -37,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.users, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUser.setAdapter(adapter);
-
-        //DbHelper dbHelper = new DbHelper(this);
 
     }
 
@@ -53,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     historique.append("USER 2 a dit : "+ champTexte.getText()+"\n\n");
                 }
                 champTexte.getText().clear();
+                sendMessage(spinnerUser);
                 break;
-            sendMessage(spinnerUser.getSelectedItem());
         }
     }
 
@@ -64,11 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
     }
 
-    private void sendMessage(Object user){
+    private void sendMessage(Spinner spinnerUser){
         ContentValues cv = new ContentValues();
 
-        cv.put(MessageEntries.USERNAME, user);
-
+        cv.put(MessageEntries.USERNAME, spinnerUser.getSelectedItem().toString());
         db.insert(MessageEntries.TABLE_NAME,null,cv);
     }
 }
